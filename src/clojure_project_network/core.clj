@@ -45,18 +45,18 @@
          (reduce into #{})))
 
   ;; Dependency network
-  (with-open [out (io/writer "dependencies.ncol")]
+  (with-open [out (io/writer "data/dependencies.ncol")]
     (doseq [[from to] data]
       (doto out
         (.write (str from " " to))
         (.newLine))))
 
   ;; Projects often used together
-  (with-open [out (io/writter "libs.ncol")]
+  (with-open [out (io/writter "data/libs.ncol")]
     )
 
   ;; Projects using similar libraries
-  (with-open [out (io/writer "apps.ncol")]
+  (with-open [out (io/writer "data/apps.ncol")]
     )
 
   )
