@@ -1,5 +1,5 @@
 ;; https://gist.github.com/1990327
-(ns lib-network.pom2clj
+(ns clojure-project-network.pom2clj
   (:require [clojure.xml :as xml]
             [clojure.zip :as zip]
             [clojure.java.io :as io]

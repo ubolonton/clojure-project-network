@@ -1,5 +1,5 @@
-(ns lib-network.core
-  (:require [lib-network.pom2clj :as p2c]
+(ns clojure-project-network.core
+  (:require [clojure-project-network.pom2clj :as p2c]
             [fs.core :as fs]
 
             [clojure.java.io :as io]

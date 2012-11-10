@@ -1,4 +1,4 @@
-# lib-network
+# clojure-project-network
 
 Collection and analysis of Clojure projects network
 
