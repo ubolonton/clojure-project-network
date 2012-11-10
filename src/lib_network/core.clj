@@ -6,6 +6,11 @@
             [clojure.xml :as xml]
             [clojure.zip :as zip]))
 
+;;; Data was collected by getting a copy of clojars.org repository. An
+;;; alternative is requesting the pom files from clojars.org, as
+;;; described at https://github.com/ato/clojars-web/wiki/Data
+;;; rsync -av clojars.org::clojars clojars-copy
+
 (def ^:dynamic *clojar-dir*
   "/Volumes/Lion Data/ubolonton/Programming/clojars-copy")
 
@@ -22,22 +27,36 @@
       {})))
 
 (defn lib-name [info]
-  (str (:groupId info) "/" (:artifactId info)))
+  (:artifactId info)
+  ;; (str (:groupId info) "/" (:artifactId info))
+  )
 
 (defn edges [info]
   (let [from (lib-name info)]
     (map (fn [i] [from (lib-name i)]) (:dependencies info))))
 
 (comment
+  (def infos
+    (map info (pom-files *clojar-dir*)))
+
   (def data
-    (->> (map info (pom-files *clojar-dir*))
+    (->> infos
          (map edges)
          (reduce into #{})))
 
-  (with-open [out (io/writer "libs.ncol")]
+  ;; Dependency network
+  (with-open [out (io/writer "dependencies.ncol")]
     (doseq [[from to] data]
       (doto out
         (.write (str from " " to))
         (.newLine))))
+
+  ;; Projects often used together
+  (with-open [out (io/writter "libs.ncol")]
+    )
+
+  ;; Projects using similar libraries
+  (with-open [out (io/writer "apps.ncol")]
+    )
 
   )
